@@ -160,7 +160,7 @@ fn print_outline(items: &[OutlineItem], indent: usize) {
         println!(
             "{}- {}",
             "  ".repeat(indent * 2),
-            item.title.clone().unwrap_or("null".to_string())
+            item.title.clone().unwrap_or("<Untitled>".to_string())
         );
         print_outline(&item.children, indent + 1);
     }
