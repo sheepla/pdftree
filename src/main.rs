@@ -113,10 +113,8 @@ fn collect_outline(doc: &Document, obj_id: ObjectId) -> Result<Vec<OutlineItem>,
             .as_dict()
             .map_err(Error::InvalidOutlines)?;
 
-        let title_object: &lopdf::Object = outline.get(b"Title").map_err(Error::ExtractTitle)?;
-
         // Extract title
-        let title: Option<String> =
+        let title: Option<String> = if let Some(title_object) = outline.get(b"Title").ok() {
             if let Object::String(title_bytes, _string_format) = title_object {
                 if title_bytes.starts_with(&[0xFE, 0xFF]) {
                     let utf16_chars = title_bytes[2..]
@@ -130,7 +128,10 @@ fn collect_outline(doc: &Document, obj_id: ObjectId) -> Result<Vec<OutlineItem>,
                 }
             } else {
                 None
-            };
+            }
+        } else {
+            None
+        };
 
         #[cfg(debug_assertions)]
         dbg!(&title);
