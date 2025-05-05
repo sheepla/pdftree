@@ -128,6 +128,10 @@ Run with the `--json` option to output the outline in JSON. For example, `pdftre
 
 </details>
 
+## Installation
+
+Clone this repository then run `cargo install --path=.` .
+
 ## Thanks
 
 - [lopdf](https://github.com/J-F-Liu/lopdf): A Rust library for PDF document manipulation. 
